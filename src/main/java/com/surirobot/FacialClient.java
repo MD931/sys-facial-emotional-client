@@ -32,8 +32,31 @@ import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamResolution;
 
 
-public class FacialClient {
+public class FacialClient extends JFrame {
 	
+	public FacialClient() {
+		
+		setLayout(new BorderLayout());
+		setSize(600, 400);
+		Panel panel = new Panel();
+		panel.setLayout(new FlowLayout());
+		camera = new JLabel();
+		panel.add(camera);
+		add("North",panel);
+		panel = new Panel();
+		panel.setLayout(new FlowLayout());
+		result = new JLabel();
+		result.setText("");
+		panel.add(new JLabel("Résultat :"));
+		panel.add(result);
+		add("Center",panel);
+		setResizable(false);
+
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		new Capture().start();
+		setLocationRelativeTo(null);
+
+	}
 	//Url de l'api
 	public static String URL_API = "http://localhost:8080/emotions/actions/retrieve-facial-emotion";
 	
@@ -137,34 +160,5 @@ public class FacialClient {
 			System.out.println("Exception while reading the Image " + ioe);
 		}
 		return base64Image;
-	}
-
-	public static void main(String[] args) throws Throwable {
-
-		JFrame frame = new JFrame();
-		frame.setLayout(new BorderLayout());
-		frame.setSize(600, 400);
-		Panel panel = new Panel();
-		panel.setLayout(new FlowLayout());
-		camera = new JLabel();
-		panel.add(camera);
-		frame.add("North",panel);
-		panel = new Panel();
-		panel.setLayout(new FlowLayout());
-		result = new JLabel();
-		result.setText("");
-		panel.add(new JLabel("Résultat :"));
-		panel.add(result);
-		frame.add("Center",panel);
-		frame.setVisible(true);
-		frame.setResizable(false);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		
-		new Capture().start();
-
-		Thread.sleep(5 * 60 * 1000); // 5 minutes
-
-		System.exit(1);
 	}
 }
