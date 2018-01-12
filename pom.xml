@@ -43,7 +43,7 @@
 					</descriptorRefs>
 					<archive>
 						<manifest>
-							<mainClass>com.surirobot.FacialClient</mainClass>
+							<mainClass>com.surirobot.HomeClient</mainClass>
 						</manifest>
 					</archive>
 
