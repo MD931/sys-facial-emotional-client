@@ -83,7 +83,7 @@ public class FacialClient extends JFrame {
 			Webcam webcam = Webcam.getDefault();
 			webcam.setViewSize(WebcamResolution.QVGA.getSize());
 			webcam.open();
-			JSONArray ja = new JSONArray();
+			JSONObject ja = new JSONObject();
 			final JavaSoundRecorder recorder = new JavaSoundRecorder();
 			new Thread(()-> {
 				recorder.start();
@@ -120,7 +120,7 @@ public class FacialClient extends JFrame {
 				//Dés qu'on aura 20 images on envoi à l'API
 				if (n != 0 && n % 25 == 0) {
 					counter.set(0);
-					ja.put(encoder(image));
+					ja.put("pictures", encoder(image));
 					if(m!= 0 && m % 250 == 0) {
 						counterRecord.set(0);
 						recorder.finish();
@@ -131,7 +131,7 @@ public class FacialClient extends JFrame {
 						}).start();
 					}else {
 						new Worker(ja).start();
-						ja = new JSONArray();
+						ja = new JSONObject();
 					}
 					
 					System.out.println(Thread.currentThread().getName() + ": Frames captured: " + n);

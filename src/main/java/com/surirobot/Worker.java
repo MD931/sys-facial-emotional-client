@@ -18,21 +18,20 @@ import org.json.JSONObject;
 
 public class Worker extends Thread {
 	
-	private JSONArray ja;
+	private JSONObject ja;
 	private JSONObject js;
 	
-	public Worker(JSONArray ja, JSONObject js) {
+	public Worker(JSONObject ja, JSONObject js) {
 		this.ja = ja;
 		this.js = js;
 	}
 	
-	public Worker(JSONArray ja) {
+	public Worker(JSONObject ja) {
 		this.ja = ja;
 	}
 	
 	@Override
 	public void run() {
-		System.out.println("TAILLE === "+ja.length());
 		//On construit la requete
 		HttpClient client = new DefaultHttpClient();  
 		HttpPost post = new HttpPost(FacialClient.URL_API);
@@ -40,9 +39,10 @@ public class Worker extends Thread {
         StringEntity se;
 		try {
 			JSONObject json  = new JSONObject();
-			json.put("pictures", ja);
+			json.put("pictures", ja.getString("pictures"));
 			if(js != null)
 				json.put("record", js.getString("record"));
+			System.out.println(json.toString());
 			se = new StringEntity(json.toString());
 	        se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
 	        post.setEntity(se);
