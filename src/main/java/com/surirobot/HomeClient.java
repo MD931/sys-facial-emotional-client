@@ -44,6 +44,8 @@ public class HomeClient extends JFrame{
 	}
 
 	public static void main(String[] args) {
-		new HomeClient();
+		//new HomeClient();
+		FacialClient frame = new FacialClient();
+		frame.setVisible(true);
 	}
 }
